@@ -2,6 +2,12 @@ doctype html
 html(lang="ko")
     head
         title #{pageTitle} | Wetube
-    body 
-        block content
-        include partials/footer.pug 
+        //- use variables and text together -> #{}
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css") 
+    body
+        header 
+            h1=pageTitle 
+            //- if use only one variables -> =
+        main  
+            block content
+            include partials/footer
