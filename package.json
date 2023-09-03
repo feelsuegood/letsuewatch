@@ -7,7 +7,7 @@
     "url": "git+https://github.com/feelsuegood/webtube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "Sue",
   "license": "MIT",
