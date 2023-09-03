@@ -1,0 +1,8 @@
+extend base.pug
+
+block content 
+    form(method="POST", action="/videos/upload")
+        //-  upload is not neccessary
+        input(name="title", placeholder="Title", required, type="text")
+        //- name!!!!!!!!!!!!!!!!!!!!!!!!
+        input(type="submit", value="Upload Video")

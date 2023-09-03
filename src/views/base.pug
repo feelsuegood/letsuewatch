@@ -2,12 +2,16 @@ doctype html
 html(lang="ko")
     head
         title #{pageTitle} | Wetube
-        //- use variables and text together -> #{}
         link(rel="stylesheet" href="https://unpkg.com/mvp.css") 
+        //- use variables and text together -> #{}
     body
         header 
             h1=pageTitle 
             //- if use only one variables -> =
+            nav 
+                ul 
+                    li 
+                        a(href="/videos/upload") Upload Video
         main  
             block content
             include partials/footer
