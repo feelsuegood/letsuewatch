@@ -1,4 +1,4 @@
-import Video from "../models/Video";
+import Video from "../models/Video.js";
 
 /* 
 - Callback option
