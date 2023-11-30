@@ -7,12 +7,13 @@ Video.find({}, (error, videos) => {});
   if(error){
   return res.render("server-error")}
   }
-  return res.render("home", { pageTitle: "Home", videos });
+  return res.render("home", { siteName, pageTitle: "Home", videos });
 */
 
+export const siteName = "Wetube";
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
-  return res.render("home", { pageTitle: "Home", videos });
+  return res.render("home", { siteName, pageTitle: "Home", siteName, videos });
   // Prevent mistakes! -> put return would be better to finish this function
 };
 
@@ -22,10 +23,17 @@ export const watch = async (req, res) => {
   const video = await Video.findById(id).populate("owner");
   // * populate로 User 데이터를 가져올 수 있음
   if (!video) {
-    return res.status(404).render("404", { pageTitle: "Video not found." });
+    return res
+      .status(404)
+      .render("404", { siteName, pageTitle: "Video not found.", siteName });
     // return 꼭 넣어줘야함 !!! neccessary!!!
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("watch", {
+    siteName,
+    pageTitle: video.title,
+    video,
+    siteName,
+  });
 };
 
 export const getEdit = async (req, res) => {
@@ -37,7 +45,9 @@ export const getEdit = async (req, res) => {
   // ^ 얘랑 같음 -> const _id= req.session.user._id
   const video = await Video.findById(id);
   if (!video) {
-    return res.status(404).render("404", { pageTitle: "Video not found." });
+    return res
+      .status(404)
+      .render("404", { siteName, pageTitle: "Video not found." });
   }
   if (String(video.owner) !== String(_id)) {
     // ! 자바스크립트는 shape, type 둘 다 확인함, 주의하자
@@ -45,7 +55,11 @@ export const getEdit = async (req, res) => {
     return res.status(403).redirect("/");
     // 403: forbidden
   }
-  return res.render("edit", { pageTitle: `Edit: ${video.title}`, video });
+  return res.render("edit", {
+    siteName,
+    pageTitle: `Edit: ${video.title}`,
+    video,
+  });
 };
 export const postEdit = async (req, res) => {
   const {
@@ -55,7 +69,7 @@ export const postEdit = async (req, res) => {
   const { title, description, hashtags } = req.body;
   const video = await Video.exists({ _id: id });
   if (!video) {
-    return res.render("404", { pageTitle: "Video not found." });
+    return res.render("404", { siteName, pageTitle: "Video not found." });
   }
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
@@ -69,7 +83,7 @@ export const postEdit = async (req, res) => {
 };
 
 export const getUpload = (req, res) => {
-  return res.render("upload", { pageTitle: "Upload Video" });
+  return res.render("upload", { siteName, pageTitle: "Upload Video" });
 };
 
 export const postUpload = async (req, res) => {
@@ -94,6 +108,7 @@ export const postUpload = async (req, res) => {
     return res.redirect("/");
   } catch (error) {
     return res.status(400).render("upload", {
+      siteName,
       pageTitle: "Upload Video",
       errorMessage: error._message,
     });
@@ -119,7 +134,9 @@ export const deleteVideo = async (req, res) => {
   } = req.session;
   const video = await Video.findById(id);
   if (!video) {
-    return res.status(404).render("404", { pageTitle: "Video not found." });
+    return res
+      .status(404)
+      .render("404", { siteName, pageTitle: "Video not found." });
   }
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
@@ -140,5 +157,5 @@ export const search = async (req, res) => {
       },
     });
   }
-  return res.render("search", { pageTitle: "Search", videos });
+  return res.render("search", { siteName, pageTitle: "Search", videos });
 };

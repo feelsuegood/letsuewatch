@@ -3,13 +3,16 @@ import Video from "../models/Video.js";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 
-export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
+export const siteName = "Wetube";
+export const getJoin = (req, res) =>
+  res.render("join", { pageTitle: "Join", siteName });
 export const postJoin = async (req, res) => {
   const { name, email, username, password, password2, location } = req.body;
   const pageTitle = "Join";
   if (password !== password2) {
     return res.status(400).render("join", {
       pageTitle,
+      siteName,
       errorMessage: "Password confirmation does not match.",
     });
   }
@@ -21,6 +24,7 @@ export const postJoin = async (req, res) => {
   if (exists) {
     return res.status(400).render("join", {
       pageTitle,
+      siteName,
       errorMessage: "This username/email is already taken.",
     });
   }
@@ -35,7 +39,8 @@ export const postJoin = async (req, res) => {
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("join", {
-      pageTitle: "Join",
+      pageTitle,
+      siteName,
       errorMessage: error._message,
     });
   }
@@ -52,6 +57,7 @@ export const postLogin = async (req, res) => {
   if (!user) {
     return res.status(400).render("login", {
       pageTitle,
+      siteName,
       errorMessage: "An account with this username does not exists.",
     });
   }
@@ -59,6 +65,7 @@ export const postLogin = async (req, res) => {
   if (!ok) {
     return res.status(400).render("login", {
       pageTitle,
+      siteName,
       errorMessage: "Wrong password",
     });
   }
@@ -152,7 +159,7 @@ export const postEdit = async (req, res) => {
     session: {
       user: { _id, avatarUrl },
     },
-    body: { name, email, username },
+    body: { name, email, username, location },
     file,
   } = req;
   console.log(file);
@@ -166,6 +173,7 @@ export const postEdit = async (req, res) => {
       name,
       email,
       username,
+      location,
     },
     { new: true }
   );
