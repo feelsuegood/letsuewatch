@@ -29,6 +29,7 @@ app.use(
 
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets")); // "/static"은 URL이고 "assets"은 폴더이름임! 달라도 됨
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
