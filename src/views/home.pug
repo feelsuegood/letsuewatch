@@ -2,12 +2,11 @@ extends base
 include mixins/video
 
 block content   
-    ul
+    div.video-grid
         //- video can be anything like potato, item, videos should be videos!
-        each potato in videos 
-            //- this is iteration(반복)
-            +video(potato)
+        each video in videos 
+            //- iteration(반복)
+            +video(video)
         else 
-            //- this is not in javaScript
-            li Sorry nothing found.
+            span.empty__message No video found
         

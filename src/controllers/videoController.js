@@ -12,7 +12,9 @@ Video.find({}, (error, videos) => {});
 
 export const siteName = "Wetube";
 export const home = async (req, res) => {
-  const videos = await Video.find({}).sort({ createdAt: "desc" });
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
   return res.render("home", { siteName, pageTitle: "Home", siteName, videos });
   // Prevent mistakes! -> put return would be better to finish this function
 };
@@ -155,7 +157,7 @@ export const search = async (req, res) => {
         // regular expression!!
         $regex: new RegExp(`${keyword}`, "i"),
       },
-    });
+    }).populate("owner");
   }
   return res.render("search", { siteName, pageTitle: "Search", videos });
 };
