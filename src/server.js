@@ -6,6 +6,7 @@ import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouters.js";
 import videoRouter from "./routers/videoRouter.js";
 import userRouter from "./routers/userRouter.js";
+import apiRouter from "./routers/apiRouter.js";
 import { localsMiddleware } from "./middlewares.js";
 
 // console.log(process.cwd());
@@ -33,5 +34,6 @@ app.use("/static", express.static("assets")); // "/static"은 URL이고 "assets"
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
+app.use("/api", apiRouter);
 
 export default app;
