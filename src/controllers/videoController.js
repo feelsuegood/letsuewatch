@@ -1,5 +1,5 @@
-import Video from "../models/Video.js";
-import User from "../models/User.js";
+import Video from '../models/Video.js';
+import User from '../models/User.js';
 
 /* 
 - Callback option
@@ -10,27 +10,27 @@ Video.find({}, (error, videos) => {});
   return res.render("home", { siteName, pageTitle: "Home", videos });
 */
 
-export const siteName = "Wetube";
+export const siteName = 'Suetube';
 export const home = async (req, res) => {
   const videos = await Video.find({})
-    .sort({ createdAt: "desc" })
-    .populate("owner");
-  return res.render("home", { siteName, pageTitle: "Home", siteName, videos });
+    .sort({ createdAt: 'desc' })
+    .populate('owner');
+  return res.render('home', { siteName, pageTitle: 'Home', siteName, videos });
   // Prevent mistakes! -> put return would be better to finish this function
 };
 
 export const watch = async (req, res) => {
   const { id } = req.params;
   // const id = req.params.id; same with above one
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id).populate('owner');
   // * populate로 User 데이터를 가져올 수 있음
   if (!video) {
     return res
       .status(404)
-      .render("404", { siteName, pageTitle: "Video not found.", siteName });
+      .render('404', { siteName, pageTitle: 'Video not found.', siteName });
     // return 꼭 넣어줘야함 !!! neccessary!!!
   }
-  return res.render("watch", {
+  return res.render('watch', {
     siteName,
     pageTitle: video.title,
     video,
@@ -49,15 +49,15 @@ export const getEdit = async (req, res) => {
   if (!video) {
     return res
       .status(404)
-      .render("404", { siteName, pageTitle: "Video not found." });
+      .render('404', { siteName, pageTitle: 'Video not found.' });
   }
   if (String(video.owner) !== String(_id)) {
     // ! 자바스크립트는 shape, type 둘 다 확인함, 주의하자
     // To check type you can do console.log(typeof video.owner)
-    return res.status(403).redirect("/");
+    return res.status(403).redirect('/');
     // 403: forbidden
   }
-  return res.render("edit", {
+  return res.render('edit', {
     siteName,
     pageTitle: `Edit: ${video.title}`,
     video,
@@ -71,10 +71,10 @@ export const postEdit = async (req, res) => {
   const { title, description, hashtags } = req.body;
   const video = await Video.exists({ _id: id });
   if (!video) {
-    return res.render("404", { siteName, pageTitle: "Video not found." });
+    return res.render('404', { siteName, pageTitle: 'Video not found.' });
   }
   if (String(video.owner) !== String(_id)) {
-    return res.status(403).redirect("/");
+    return res.status(403).redirect('/');
   }
   await Video.findByIdAndUpdate(id, {
     title,
@@ -85,7 +85,7 @@ export const postEdit = async (req, res) => {
 };
 
 export const getUpload = (req, res) => {
-  return res.render("upload", { siteName, pageTitle: "Upload Video" });
+  return res.render('upload', { siteName, pageTitle: 'Upload Video' });
 };
 
 export const postUpload = async (req, res) => {
@@ -107,11 +107,11 @@ export const postUpload = async (req, res) => {
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
-    return res.redirect("/");
+    return res.redirect('/');
   } catch (error) {
-    return res.status(400).render("upload", {
+    return res.status(400).render('upload', {
       siteName,
-      pageTitle: "Upload Video",
+      pageTitle: 'Upload Video',
       errorMessage: error._message,
     });
   }
@@ -138,13 +138,13 @@ export const deleteVideo = async (req, res) => {
   if (!video) {
     return res
       .status(404)
-      .render("404", { siteName, pageTitle: "Video not found." });
+      .render('404', { siteName, pageTitle: 'Video not found.' });
   }
   if (String(video.owner) !== String(_id)) {
-    return res.status(403).redirect("/");
+    return res.status(403).redirect('/');
   }
   await Video.findByIdAndDelete(id);
-  return res.redirect("/");
+  return res.redirect('/');
 };
 
 export const search = async (req, res) => {
@@ -155,11 +155,11 @@ export const search = async (req, res) => {
     videos = await Video.find({
       title: {
         // regular expression!!
-        $regex: new RegExp(`${keyword}`, "i"),
+        $regex: new RegExp(`${keyword}`, 'i'),
       },
-    }).populate("owner");
+    }).populate('owner');
   }
-  return res.render("search", { siteName, pageTitle: "Search", videos });
+  return res.render('search', { siteName, pageTitle: 'Search', videos });
 };
 
 export const registerView = async (req, res) => {

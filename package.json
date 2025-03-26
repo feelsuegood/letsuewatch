@@ -5,7 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/feelsuegood/webtube-reloaded.git"
+    "url": "git+https://github.com/feelsuegood/youtube-clone.git"
   },
   "scripts": {
     "dev:server": "nodemon",
@@ -14,9 +14,9 @@
   "author": "Sue",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/feelsuegood/webtube-reloaded/issues"
+    "url": "https://github.com/feelsuegood/youtube-clone/issues"
   },
-  "homepage": "https://github.com/feelsuegood/webtube-reloaded#readme",
+  "homepage": "https://github.com/feelsuegood/youtube-clone#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.0.0",
@@ -27,7 +27,8 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^3.3.2",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "regenerator-runtime": "^0.14.1"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
