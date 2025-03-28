@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/feelsuegood/youtube-clone#readme",
   "dependencies": {
+    "@ffmpeg/core": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.0.0",
     "dotenv": "^16.3.1",
