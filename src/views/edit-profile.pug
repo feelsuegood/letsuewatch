@@ -1,7 +1,7 @@
 extends base
 
 block content
-    //- 액션 입력 안하면 현재 페이지로 전송, encoding type
+    //- If no action is entered, it will be sent to the current page, encoding type
     form(method="POST", enctype="multipart/form-data").edit-profile__form
         label(for="avatar") Avatar
         input(type="file", id="avatar", name="avatar", accept="image/*")
