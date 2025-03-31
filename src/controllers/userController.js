@@ -148,8 +148,14 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  req.session.destroy();
-  return res.redirect('/');
+  // can't use a flash message without session
+  // req.session.destroy();
+  req.session.user = null;
+  req.session.loggedIn = false;
+  req.flash('info', 'Successfully logged out');
+  req.session.save(() => {
+    return res.redirect('/');
+  });
 };
 export const getEdit = (req, res) => {
   return res.render('edit-profile', { pageTitle: 'Edit Profile' });
@@ -240,6 +246,7 @@ export const postEdit = async (req, res) => {
 
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash('error', "Can't change password");
     return redirect('/');
   }
   return res.render('users/change-password', {
@@ -271,10 +278,9 @@ export const postChangePassword = async (req, res) => {
   }
   console.log('old pw:', user.password);
   user.password = newPassword;
-  console.log('new unhashed pw:', user.password);
   await user.save();
-  console.log('new hashed pw:', user.password);
-  return res.redirect('/');
+  req.flash('info', 'Password updated');
+  return res.redirect('/users/logout');
 };
 export const see = async (req, res) => {
   const { id } = req.params;
