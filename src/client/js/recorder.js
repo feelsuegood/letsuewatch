@@ -90,7 +90,7 @@ const handleStart = () => {
   recorder.start();
   setTimeout(() => {
     recorder.stop();
-  }, 3000);
+  }, 1500);
 };
 
 const init = async () => {

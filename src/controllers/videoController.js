@@ -1,4 +1,5 @@
 import Video from "../models/Video.js";
+import Comment from "../models/Comment.js";
 import User from "../models/User.js";
 
 /* 
@@ -22,13 +23,14 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   // const id = req.params.id; same with above one
-  const video = await Video.findById(id).populate("owner");
-  // * populate로 User 데이터를 가져올 수 있음
+  const video = await Video.findById(id).populate("owner").populate("comments");
+  console.log(video);
+  // * get User data using populate
   if (!video) {
     return res
       .status(404)
       .render("404", { siteName, pageTitle: "Video not found.", siteName });
-    // return 꼭 넣어줘야함 !!! neccessary!!!
+    // return neccessary!!!
   }
   return res.render("watch", {
     siteName,
@@ -44,7 +46,7 @@ export const getEdit = async (req, res) => {
   const {
     user: { _id },
   } = req.session;
-  // ^ 얘랑 같음 -> const _id= req.session.user._id
+  // ^ const _id= req.session.user._id
   const video = await Video.findById(id);
   if (!video) {
     return res
@@ -52,7 +54,6 @@ export const getEdit = async (req, res) => {
       .render("404", { siteName, pageTitle: "Video not found." });
   }
   if (String(video.owner) !== String(_id)) {
-    // ! 자바스크립트는 shape, type 둘 다 확인함, 주의하자
     // To check type you can do console.log(typeof video.owner)
     return res.status(403).redirect("/");
     // 403: forbidden
@@ -177,7 +178,44 @@ export const registerView = async (req, res) => {
 };
 
 export const createComment = async (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
-  return res.end();
+  const {
+    session: { user },
+    body: { text },
+    params: { id },
+  } = req;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    video: id,
+  });
+  video.comments.push(comment._id);
+  video.save();
+  return res.status(201).json({ newCommentId: comment._id });
+};
+
+export const deleteComment = async (req, res) => {
+  const {
+    session: { user },
+    body: { commentId },
+    params: { id: videoId },
+  } = req;
+  const comment = await Comment.findById(commentId);
+  if (!comment) {
+    return res.sendStatus(404);
+  }
+  if (String(comment.owner) !== String(user._id)) {
+    return res.sendStatus(403);
+  }
+  await Comment.findByIdAndDelete({ _id: commentId });
+  await Video.findByIdAndUpdate(
+    { _id: videoId },
+    {
+      $pull: { comments: commentId },
+    },
+  );
+  return res.sendStatus(200);
 };

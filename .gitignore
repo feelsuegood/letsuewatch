@@ -3,3 +3,5 @@ node_modules/
 .env
 uploads/
 assets/
+src/client/ffmpeg-core.js
+src/client/ffmpeg-core.wasm
