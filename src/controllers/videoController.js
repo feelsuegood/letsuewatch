@@ -1,6 +1,7 @@
 import Video from "../models/Video.js";
 import Comment from "../models/Comment.js";
 import User from "../models/User.js";
+import { faviconUrl } from "../middlewares.js";
 
 /* 
 - Callback option
@@ -12,11 +13,19 @@ Video.find({}, (error, videos) => {});
 */
 
 export const siteName = "Suetube";
+
 export const home = async (req, res) => {
   const videos = await Video.find({})
     .sort({ createdAt: "desc" })
     .populate("owner");
-  return res.render("home", { siteName, pageTitle: "Home", siteName, videos });
+  const favicon = faviconUrl();
+  return res.render("home", {
+    siteName,
+    pageTitle: "Home",
+    siteName,
+    videos,
+    favicon,
+  });
   // Prevent mistakes! -> put return would be better to finish this function
 };
 
@@ -24,7 +33,6 @@ export const watch = async (req, res) => {
   const { id } = req.params;
   // const id = req.params.id; same with above one
   const video = await Video.findById(id).populate("owner").populate("comments");
-  console.log(video);
   // * get User data using populate
   if (!video) {
     return res
@@ -95,15 +103,14 @@ export const postUpload = async (req, res) => {
     user: { _id },
   } = req.session;
   const { video, thumb } = req.files;
-  console.log(video, thumb);
   // ^es6, common js-> const file = req.file;
   const { title, description, hashtags } = req.body;
   try {
     const newVideo = await Video.create({
       title: title,
       description,
-      fileUrl: video[0].path,
-      thumbUrl: thumb[0].path,
+      fileUrl: video[0].location,
+      thumbUrl: thumb[0].location,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });

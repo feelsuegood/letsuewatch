@@ -1,12 +1,13 @@
 include mixins/message
 
 doctype html
-html(lang="ko")
+html(lang="en")
     head
         //- if use only one variables -> =
         title #{pageTitle} | #{siteName}
         //- link(rel="stylesheet" href="https://unpkg.com/mvp.css") 
         //- use variables and text together -> #{}
+        link(rel="icon" href=faviconUrl)
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css")
         link(rel="stylesheet" href="/static/css/styles.css")
     body

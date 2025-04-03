@@ -1,7 +1,6 @@
 import User from "../models/User.js";
 import Video from "../models/Video.js";
-import fetch from "node-fetch";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 export const siteName = "Suetube";
 export const getJoin = (req, res) =>
@@ -61,7 +60,7 @@ export const postLogin = async (req, res) => {
       errorMessage: "An account with this username does not exists.",
     });
   }
-  const ok = await bcrypt.compare(password, user.password);
+  const ok = await bcryptjs.compare(password, user.password);
   if (!ok) {
     return res.status(400).render("login", {
       pageTitle,
@@ -113,7 +112,6 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log(userData);
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {
@@ -122,7 +120,7 @@ export const finishGithubLogin = async (req, res) => {
       })
     ).json();
     const emailObj = emailData.find(
-      (email) => email.primary === true && email.verified === true
+      (email) => email.primary === true && email.verified === true,
     );
     if (!emailObj) {
       return res.redirect("/login");
@@ -172,19 +170,18 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-  console.log(file);
   // const id = req.session.user.id;
   // const { name, email, username } = req.body;
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? file.location : avatarUrl,
       name,
       email,
       username,
       location,
     },
-    { new: true }
+    { new: true },
   );
   // await User.findByIdAndDelete(_id, {
   //   name,
@@ -225,7 +222,7 @@ export const postChangePassword = async (req, res) => {
     body: { oldPassword, newPassword, newPasswordConfirmation },
   } = req;
   const user = await User.findById(_id);
-  const ok = await bcrypt.compare(oldPassword, user.password);
+  const ok = await bcryptjs.compare(oldPassword, user.password);
   if (!ok) {
     return res.status(400).render("users/change-password", {
       pageTitle: "Change Password",
@@ -238,7 +235,6 @@ export const postChangePassword = async (req, res) => {
       errorMessage: "The password does not match the confirmation.",
     });
   }
-  console.log("old pw:", user.password);
   user.password = newPassword;
   await user.save();
   req.flash("info", "Password updated");

@@ -8,12 +8,21 @@ const video = document.getElementById("preview");
 let stream;
 let recorder;
 let videoFile;
+let coreJsUrl;
+let coreWasmUrl;
 
 const files = {
   input: "recording.webm",
   output: "output.mp4",
   thumb: "thumbnail.jpg",
 };
+
+async function initializeUrls() {
+  const response = await fetch("/videos/ffmpeg-urls");
+  const urls = await response.json();
+  coreJsUrl = urls.coreJsUrl;
+  coreWasmUrl = urls.coreWasmUrl;
+}
 
 const downloadFile = (fileUrl, fileName) => {
   const a = document.createElement("a");
@@ -29,11 +38,11 @@ const handleDownload = async () => {
   actionBtn.disabled = true;
 
   const ffmpeg = new FFmpeg();
-  ffmpeg.on("log", ({ message }) => console.log(message));
   await ffmpeg.load({
-    coreURL: `/static/ffmpeg-core.js`,
-    wasmURL: `/static/ffmpeg-core.wasm`,
+    coreURL: coreJsUrl,
+    wasmURL: coreWasmUrl,
   });
+  await ffmpeg.load();
   await ffmpeg.writeFile(files.input, await fetchFile(videoFile));
   await ffmpeg.exec(["-i", files.input, "-r", "60", files.output]);
   await ffmpeg.exec([
@@ -94,6 +103,7 @@ const handleStart = () => {
 };
 
 const init = async () => {
+  initializeUrls();
   stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
     video: { width: 1024, height: 576 },
