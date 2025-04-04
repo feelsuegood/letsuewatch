@@ -82,7 +82,7 @@ A full-stack YouTube clone built with **Node.js**, **Express**, **MongoDB**, and
 
 ## 🐳 Deployment
 
-The application is Dockerized and ready for deployment on Fly.io.
+The application is Dockerized and ready for deployment on Fly.io.  
 Make sure your application listens on `0.0.0.0:3000`.
 
 ## 📁 Project Structure
