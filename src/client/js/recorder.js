@@ -38,11 +38,11 @@ const handleDownload = async () => {
   actionBtn.disabled = true;
 
   const ffmpeg = new FFmpeg();
+  // ffmpeg.on("log", ({ message }) => console.log(message));
   await ffmpeg.load({
     coreURL: coreJsUrl,
     wasmURL: coreWasmUrl,
   });
-  await ffmpeg.load();
   await ffmpeg.writeFile(files.input, await fetchFile(videoFile));
   await ffmpeg.exec(["-i", files.input, "-r", "60", files.output]);
   await ffmpeg.exec([
@@ -51,7 +51,7 @@ const handleDownload = async () => {
     "-ss",
     "00:00:01",
     "-frames:v",
-    "1",
+    "2",
     files.thumb,
   ]);
   const mp4File = await ffmpeg.readFile(files.output);
@@ -99,7 +99,7 @@ const handleStart = () => {
   recorder.start();
   setTimeout(() => {
     recorder.stop();
-  }, 1500);
+  }, 3000);
 };
 
 const init = async () => {

@@ -3,8 +3,10 @@ import Video from "../models/Video.js";
 import bcryptjs from "bcryptjs";
 
 export const siteName = "Suetube";
+
 export const getJoin = (req, res) =>
   res.render("join", { pageTitle: "Join", siteName });
+
 export const postJoin = async (req, res) => {
   const { name, email, username, password, password2, location } = req.body;
   const pageTitle = "Join";
@@ -172,6 +174,7 @@ export const postEdit = async (req, res) => {
   } = req;
   // const id = req.session.user.id;
   // const { name, email, username } = req.body;
+  // * console.log(file)
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
