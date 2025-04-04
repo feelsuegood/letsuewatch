@@ -16,6 +16,7 @@ jobs:
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_APP_NAME: ${{ secrets.FLY_APP_NAME }}
           COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
           DB_URL: ${{ secrets.DB_URL }}
           GH_CLIENT: ${{ secrets.GH_CLIENT }}
