@@ -7,5 +7,4 @@ dist/
 src/client/ffmpeg-core.js
 src/client/ffmpeg-core.wasm
 .cursor
-*.jpg
-*.mp4
+samples/
