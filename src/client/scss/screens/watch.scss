@@ -1,5 +1,6 @@
 .video__data {
-  margin-top: 20px;
+  width: 70%;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -33,10 +34,12 @@
   }
 }
 .video__add-comments {
-  margin-top: 20px;
+  width: 70%;
+  margin: 20px auto;
   form {
-    max-width: 320px;
-    margin: 0 auto;
+    width: 40%;
+    height: 100px;
+    max-width: none;
     display: flex;
     flex-direction: column;
     gap: 10px;
