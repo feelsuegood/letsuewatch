@@ -25,7 +25,6 @@ A full-stack YouTube clone built with **Node.js**, **Express**, **MongoDB**, and
 - **DevOps**:
   - Babel for transpilation
   - Docker for containerization
-  - Fly.io for deployment
   - GitHub Actions for CI/CD
 
 ## 🚀 Getting Started
@@ -57,7 +56,7 @@ A full-stack YouTube clone built with **Node.js**, **Express**, **MongoDB**, and
    Create a `.env` file in the root directory with the following variables:
    ```
    COOKIE_SECRET=your_cookie_secret
-   DB_URL=mongodb://localhost:27017/suetube
+   DB_URL=mongodb://localhost:27017/your_database_name
    GH_CLIENT=your_github_client_id
    GH_SECRET=your_github_client_secret
    AWS_ACCESS_KEY_ID=your_aws_access_key
@@ -82,7 +81,7 @@ A full-stack YouTube clone built with **Node.js**, **Express**, **MongoDB**, and
 
 ## 🐳 Deployment
 
-The application is Dockerized and ready for deployment on Fly.io.  
+The application is Dockerized and ready for deployment.  
 Make sure your application listens on `0.0.0.0:3000`.
 
 ## 📁 Project Structure
@@ -100,6 +99,7 @@ src/
 └── server.js       # Server entry point
 ```
 
-## 📝 License
+## 🙏 Acknowledgement
 
-MIT © feelsuegood
+- [Nomad Coders YouTube Clone](https://nomadcoders.co/wetube)
+- [Youtube](https://www.youtube.com/)
