@@ -1,6 +1,6 @@
-# 🎬 Suetube — YouTube Clone
+# 🎬 Let'sue Watch
 
-A full-stack YouTube clone built with **Node.js**, **Express**, **MongoDB**, and **AWS S3**. Users can upload, stream, and interact with videos.
+A full-stack YouTube-inspired web app built with **Node.js**, **Express**, **MongoDB**, and **AWS S3**. Users can upload, stream, and interact with videos.
 
 ## ✨ Features
 
@@ -42,8 +42,8 @@ A full-stack YouTube clone built with **Node.js**, **Express**, **MongoDB**, and
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/feelsuegood/youtube-clone.git
-   cd youtube-clone
+   git clone https://github.com/feelsuegood/letsuewatch.git
+   cd letsuewatch
    ```
 
 2. **Install dependencies**

@@ -12,7 +12,7 @@ Video.find({}, (error, videos) => {});
   return res.render("home", { siteName, pageTitle: "Home", videos });
 */
 
-export const siteName = "Suetube";
+export const siteName = "Let'sue Watch";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})

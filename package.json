@@ -1,10 +1,10 @@
 {
-  "name": "Suetube",
+  "name": "letsuewatch",
   "version": "1.0.0",
   "description": "The best way to watch videos.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/feelsuegood/youtube-clone.git"
+    "url": "git+https://github.com/feelsuegood/letsuewatch.git"
   },
   "scripts": {
     "dev:server": "nodemon",
@@ -17,9 +17,9 @@
   "author": "Sue",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/feelsuegood/youtube-clone/issues"
+    "url": "https://github.com/feelsuegood/letsuewatch/issues"
   },
-  "homepage": "https://github.com/feelsuegood/youtube-clone#readme",
+  "homepage": "https://github.com/feelsuegood/letsuewatch#readme",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.577.0",
     "@ffmpeg/core": "^0.12.6",
