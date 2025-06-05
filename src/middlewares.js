@@ -34,7 +34,7 @@ export const faviconUrl = () => {
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
-  res.locals.siteName = "Let'sue Watch";
+  res.locals.siteName = "Let'Sue Watch";
   res.locals.loggedInUser = req.session.user || {};
   res.locals.faviconUrl = faviconUrl();
   next();

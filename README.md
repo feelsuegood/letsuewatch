@@ -1,4 +1,4 @@
-# 🎬 Let'sue Watch
+# 🎬 Let'Sue Watch
 
 A full-stack YouTube-inspired web app built with **Node.js**, **Express**, **MongoDB**, and **AWS S3**. Users can upload, stream, and interact with videos.
 
