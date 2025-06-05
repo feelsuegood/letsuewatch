@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import Video from "../models/Video.js";
 import bcryptjs from "bcryptjs";
 
-export const siteName = "Let'sue Watch";
+export const siteName = "Let'Sue Watch";
 
 export const getJoin = (req, res) =>
   res.render("join", { pageTitle: "Join", siteName });
