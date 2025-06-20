@@ -1,6 +1,10 @@
 .empty__message {
   margin-bottom: 50px;
   font-size: 18px;
+   // Add center alignment styles
+   grid-column: 1 / -1; // span across all grid columns
+   text-align: center;
+   justify-self: center;
 }
 .video-grid {
   display: grid;
